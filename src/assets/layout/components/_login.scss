@@ -1,0 +1,502 @@
+@use 'sass:color';
+
+// Layout general
+
+.login-page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem; 
+    box-sizing: border-box;
+}
+
+.login-central-frame {
+    width: 100%;
+    max-width: 966px; 
+    min-height: 675px; 
+    max-height: 85vh;  
+    background-color: #1C1C1C; 
+    border-radius: 25px;       
+    box-sizing: border-box;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 0 1.5rem; 
+    
+    @media (max-height: 740px) {
+        min-height: 580px;
+    }
+}
+
+// Tarjeta visual y logo
+
+.login-visual-card {
+    width: 446px;  
+    height: 629px; 
+    border-radius: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box;
+    background-color: #1C1C1C; 
+    overflow: hidden; 
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        z-index: 1;
+        background: radial-gradient(
+            ellipse 50% 50% at 50% 50%,
+            rgba(28, 28, 28, 0) 0%,  
+            rgba(28, 28, 28, 0) 45%,   
+            rgba(255, 255, 255, 1) 85%, 
+            rgba(255, 255, 255, 1) 100% 
+        );
+        transform: rotate(-12deg) scale(2.2);
+        pointer-events: none;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0; bottom: 0; left: 0; right: 0;
+        padding: 1px; 
+        border-radius: 13px;
+        background: linear-gradient(180deg, #FAF7F7 0%, #949292 100%);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+        -webkit-mask-composite: xor;
+        pointer-events: none;
+        z-index: 2;
+    }
+}
+
+.Logo {
+    max-width: 70%; 
+    height: auto;
+    z-index: 3; 
+}
+
+// 🌟 Por defecto (desktop): logo de la tarjeta visible, logo standalone oculto
+.Logo--mobile {
+    display: none;
+}
+
+.Logo--desktop {
+    display: block;
+}
+
+// Columna de formulario
+
+.login-form-side {
+    flex: 1;
+    height: 629px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 4rem; 
+    box-sizing: border-box;
+    position: relative;
+    gap: 20px;
+}
+
+// Titulo y linea divisoria
+
+.login-tittle {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 22.5px;
+    color: #FFFFFF;
+    margin: 0;
+    line-height: 1.2;
+    width: 319px;
+    text-align: left;
+}
+
+.login-divider {
+    width: 100px;
+    height: 1px;
+    background-color: #FFFFFF;
+    border: none;
+    margin: 0; 
+    margin-left: 10px; 
+    align-self: flex-start;
+    flex-shrink: 0; 
+}
+
+// Formulario e inputs
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 319px;
+    align-items: flex-start;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4.5px;
+    width: 319px;
+}
+
+.input-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14.4px;
+    color: #FFFFFF;
+    text-align: left;
+}
+
+.form-input {
+    width: 319px;
+    height: 40px;
+    background-color: #2B2B2B;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: 0 1rem;
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+        outline: none;
+        border-color: #FAF7F7;
+    }
+
+    &::placeholder {
+        color: #757575;
+    }
+
+    &.input-error { 
+        border-color: #DF0404;
+
+        &:focus {
+            border-color: #DF0404;
+            box-shadow: 0 0 0 2px rgba(255, 90, 90, 0.2); 
+        }
+    }
+
+
+    &.input--error-highlight {
+        border-color: #FFFFFF !important;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.35); // Destello sutil
+        outline: none;
+    }
+}
+
+.error-message {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 10.8px;
+    color: #DF0404;
+    margin-top: 2px;
+    line-height: 1.2;
+    word-break: break-word; 
+}
+
+// Contrasena e icono
+
+.input-container {
+    position: relative;
+    width: 319px;
+    display: flex;
+    align-items: center;
+}
+
+.form-input.password-input {
+    width: 100%;
+    padding-right: 40px !important;
+    transition: filter 0.2s ease-in-out, letter-spacing 0.2s ease;
+
+    &.is-masked {
+        -webkit-text-security: disc;
+        letter-spacing: 2.5px;
+        filter: blur(0px);
+    }
+
+    &:not(.is-masked) {
+        -webkit-text-security: none;
+        letter-spacing: 0px;
+        // Transición de revelado con micro-desenfoque
+        animation: textReveal 0.25s ease-out forwards;
+    }
+}
+
+@keyframes textReveal {
+    0% {
+        filter: blur(3px);
+        opacity: 0.7;
+    }
+    100% {
+        filter: blur(0px);
+        opacity: 1;
+    }
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 15px;
+    top: 40%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    line-height: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.password-icon {
+    width: 18px;
+    height: 18px;
+    display: block;
+    overflow: visible;
+}
+
+// Animacion de icono
+
+.fade-rotate-enter-active,
+.fade-rotate-leave-active {
+    transition: all 0.15s ease-in-out;
+}
+
+.fade-rotate-enter-from {
+    opacity: 0;
+    transform: scale(0.6) rotate(-90deg);
+}
+
+.fade-rotate-leave-to {
+    opacity: 0;
+    transform: scale(0.6) rotate(90deg);
+}
+
+// Boton de envio
+
+.login-submit-btn {
+    width: 319px;
+    height: 40px;
+    background-color: #848CFF;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 14.4px;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+
+    &:hover {
+        background-color: color.adjust(#848CFF, $lightness: 5%);
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
+}
+
+// Enlace recuperacion de contrasena
+
+.forgot-password-container {
+    width: 319px;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+}
+
+.forgot-password-link {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 14.4px;
+    color: #6A6B6D;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: #8E8F92;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+
+
+// ADAPTACIONES RESPONSIVAS (MEDIA QUERIES)
+
+// Pantallas grandes / Laptops (<= 1024px)
+@media (max-width: 1024px) {
+    .login-page-wrapper {
+        padding: 1.5rem;
+    }
+
+    .login-central-frame {
+        max-width: 880px;
+    }
+}
+
+// Tabletas y Pantallas Medianas (<= 900px)
+@media (max-width: 900px) {
+    .login-central-frame {
+        max-width: 100%;
+        height: auto;
+        max-height: none;
+        padding: 2rem 1rem;
+    }
+
+    .login-visual-card {
+        width: 380px;
+        height: 520px;
+    }
+
+    .login-form-side {
+        padding: 0 1.5rem;
+    }
+}
+
+// Dispositivos Móviles (<= 768px)
+@media (max-width: 768px) {
+    .login-page-wrapper {
+        padding: 1rem;
+    }
+
+    .login-central-frame {
+        position: relative;
+        flex-direction: column; // Cambia de 2 columnas horizontales a 1 columna vertical
+        gap: 1.5rem; // 🌟 escala base 8px
+        padding: 2.5rem 1.5rem 2rem;
+        border-radius: 16px;
+        overflow: hidden;
+
+        // 🌟 Trasladamos el borde metálico de la tarjeta visual al frame completo,
+        // manteniendo continuidad de marca sin el peso de la tarjeta entera.
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            padding: 1px;
+            border-radius: 16px;
+            background: linear-gradient(180deg, #FAF7F7 0%, #949292 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            -webkit-mask-composite: xor;
+            pointer-events: none;
+        }
+    }
+
+    // 🌟 Eliminamos la tarjeta visual completa en mobile
+    .login-visual-card {
+        display: none;
+    }
+
+    // 🌟 Logo standalone, centrado, como ancla de marca
+    .Logo--mobile {
+        display: block;
+        max-width: 130px;
+        margin: 0 auto;
+    }
+
+    .Logo--desktop {
+        display: none;
+    }
+
+    // Reestructuración de la columna del formulario
+    .login-form-side {
+        width: 100%;
+        height: auto; // Liberamos la altura fija de 629px
+        padding: 0;
+        gap: 1.5rem; // 🌟 escala consistente con el frame
+    }
+
+    // 🌟 Título centrado: sin la columna visual a la derecha, el centrado
+    // balancea mejor que el alineado a la izquierda original.
+    .login-tittle {
+        width: 100%;
+        max-width: 319px;
+        font-size: clamp(20px, 6vw, 22.5px);
+        text-align: center;
+    }
+
+    // 🌟 Divisor centrado, coherente con el título centrado
+    .login-divider {
+        margin: 0 auto;
+        align-self: center;
+    }
+
+    // Fluidez en los anchos para evitar desbordamientos
+    .login-form,
+    .form-group,
+    .form-input,
+    .input-container,
+    .login-submit-btn,
+    .forgot-password-container {
+        width: 100%;
+        max-width: 319px;
+    }
+
+    // 🌟 Altura mínima de target táctil (44px) en inputs y botón
+    .form-input,
+    .login-submit-btn {
+        height: 44px;
+    }
+
+    // 🌟 Área de toque más generosa para mostrar/ocultar contraseña
+    .toggle-password-btn {
+        padding: 10px;
+        right: 5px;
+    }
+
+    .forgot-password-container {
+        position: relative; // Pasa de absoluto a relativo para fluir en vertical
+        bottom: auto;
+        margin-top: 0.5rem;
+    }
+}
+
+// Móviles muy pequeños (<= 380px)
+@media (max-width: 380px) {
+    .login-page-wrapper {
+        padding: 0.75rem;
+    }
+
+    .login-central-frame {
+        padding: 2rem 1rem 1.5rem;
+        border-radius: 12px;
+        gap: 1rem;
+    }
+
+    .Logo--mobile {
+        max-width: 110px;
+    }
+
+    .login-form-side {
+        gap: 1rem;
+    }
+}

@@ -1,0 +1,50 @@
+// ==========================================
+// MODAL DE RECUPERACIÓN (OVERLAY)
+// ==========================================
+
+.recovery-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+
+    // Color #D9D9D9 con 50% de opacidad
+    background-color: rgba(217, 217, 217, 0.5);
+
+    // Efecto de desenfoque de fondo (Backdrop Blur)
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); // Compatibilidad con Safari
+
+    // Centrado de la tarjeta del modal
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    box-sizing: border-box;
+}
+
+// Tarjeta contenedor interna (Base)
+.recovery-modal-card {
+    width: 100%;
+    max-width: 420px;
+    background-color: #1C1C1C;
+    border-radius: 16px;
+    padding: 2rem;
+    box-sizing: border-box;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+// Transiciones de entrada y salida
+.fade-backdrop-enter-active,
+.fade-backdrop-leave-active {
+    transition: opacity 0.25s ease, backdrop-filter 0.25s ease;
+}
+
+.fade-backdrop-enter-from,
+.fade-backdrop-leave-to {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+}

@@ -1,0 +1,237 @@
+@use 'sass:color';
+
+.toast-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+
+    @media (max-width: 480px) {
+        top: 16px;
+        right: 16px;
+        left: 16px;
+    }
+}
+
+.toast-card {
+    pointer-events: auto;
+    position: relative;
+    overflow: hidden;
+    width: 400px;
+    height: 72px;
+    padding: 0 16px 0 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    box-sizing: border-box;
+
+    // VARIANTES MODO LIGHT
+
+    // 1. SUCCESS (#01E17A)
+    &.toast--success {
+        background-color: #FFFFFF;
+        border: 1px solid #01E17A;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 173px;
+            height: 100%;
+            background: linear-gradient(
+                90deg, 
+                rgba(1, 225, 122, 0.28) 0%, 
+                rgba(1, 225, 122, 0) 100%
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .toast-icon-inner { background-color: #01E17A; }
+        .toast-title { color: #01E17A; }
+
+        .toast-icon-svg path {
+        fill: none !important;      // Evita que se rellene por dentro
+        stroke: currentColor;      // Pinta las líneas de blanco
+    }
+
+    }
+
+    // 2. WARNING (#FED21D)
+    &.toast--warning {
+        background-color: #FFFFFF;
+        border: 1px solid #FED21D;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 173px;
+            height: 100%;
+            background: linear-gradient(
+                90deg, 
+                rgba(254, 210, 29, 0.28) 0%, 
+                rgba(254, 210, 29, 0) 100%
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .toast-icon-inner { background-color: #FED21D; }
+        .toast-title { color: #FED21D; }
+
+        .toast-icon-svg path {
+        fill: none !important;      // Evita que se rellene por dentro
+        stroke: currentColor;      // Pinta las líneas de blanco
+        }
+
+        .toast-icon-svg {
+        width: 28px;  // 🌟 Tamaño específico para el triángulo
+        height: 28px; // 🌟 Tamaño específico para el triángulo
+        }
+    }
+
+    // 3. ERROR (#F04248)
+    &.toast--error {
+        background-color: #FFFFFF;
+        border: 1px solid #F04248;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 173px;
+            height: 100%;
+            background: linear-gradient(
+                90deg, 
+                rgba(240, 66, 72, 0.28) 0%, 
+                rgba(240, 66, 72, 0) 100%
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .toast-icon-inner { background-color: #F04248; }
+        .toast-title { color: #F04248; }
+
+        .toast-icon-svg path {
+        // Si alert-triangle usa líneas:
+        fill: currentColor;
+        stroke: none;
+
+        }
+    }
+
+    .toast-message { color: #1C1C1C; }
+}
+
+// ESTRUCTURA DEL ÍCONO (CÍRCULOS CONCÉNTRICOS)
+
+.toast-icon-outer {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(157, 157, 157, 0.13); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.toast-icon-inner {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background-color 0.2s ease;
+}
+
+.toast-icon-svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    display: block;
+    background: transparent;
+    color: #FFFFFF; // Asigna blanco como el valor de 'currentColor'
+}
+
+// CONTENIDO TEXTUAL (COLUMNA EN 2 LÍNEAS)
+
+.toast-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    overflow: hidden;
+    flex-grow: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.toast-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.toast-message {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.3;
+    margin: 0;
+}
+
+// BOTÓN DE CIERRE
+
+.toast-close-btn {
+    background: transparent;
+    border: none;
+    color: #6A6B6D;
+    font-size: 18px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: #1C1C1C;
+    }
+}
+
+// Animacion de entrada y salida
+.toast-slide-enter-active,
+.toast-slide-leave-active {
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast-slide-enter-from {
+    opacity: 0;
+    transform: translateX(30px) scale(0.95);
+}
+
+.toast-slide-leave-to {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+}
