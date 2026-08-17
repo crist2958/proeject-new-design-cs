@@ -1,5 +1,7 @@
+@use 'sass:color';
+
 // ==========================================
-// MODAL DE RECUPERACIÓN (OVERLAY)
+// MODAL DE RECUPERACIÓN (OVERLAY Y CONTENEDOR)
 // ==========================================
 
 .recovery-modal-overlay {
@@ -9,15 +11,9 @@
     width: 100vw;
     height: 100vh;
     z-index: 1000;
-
-    // Color #D9D9D9 con 50% de opacidad
     background-color: rgba(217, 217, 217, 0.5);
-
-    // Efecto de desenfoque de fondo (Backdrop Blur)
     backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px); // Compatibilidad con Safari
-
-    // Centrado de la tarjeta del modal
+    -webkit-backdrop-filter: blur(8px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,18 +21,195 @@
     box-sizing: border-box;
 }
 
-// Tarjeta contenedor interna (Base)
-.recovery-modal-card {
-    width: 100%;
-    max-width: 420px;
-    background-color: #1C1C1C;
-    border-radius: 16px;
-    padding: 2rem;
-    box-sizing: border-box;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+.recovery-modal-container {
+    position: relative;
+    width: 350px;
+    height: 350px;
+
+    @media (max-width: 380px) {
+        width: calc(100vw - 32px);
+        height: auto;
+        min-height: 350px;
+    }
 }
 
-// Transiciones de entrada y salida
+// Tarjeta principal con contenido centrado y separación de 17px
+.recovery-modal-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #1C1C1C;
+    padding: 24px;
+    box-sizing: border-box;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+    clip-path: url(#recoveryCardClip);
+
+    // Centrado vertical y horizontal de los elementos
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 17px;
+    text-align: center;
+
+    @media (max-width: 380px) {
+        clip-path: none;
+        border-radius: 18px;
+    }
+}
+
+// Título (18px, Inter Extra Bold 800)
+.recovery-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: #FFFFFF;
+    line-height: 1.2;
+    margin: 0;
+}
+
+// Línea divisoria (111px x 0, #7E7E7E)
+.recovery-divider {
+    width: 111px;
+    height: 0;
+    border: none;
+    border-top: 1px solid #7E7E7E;
+    margin: 0;
+}
+
+// Descripción (11px, Poppins Regular 400)
+// Descripción (Caja fija de 222px x 85px de Figma)
+.recovery-description {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: #FFFFFF;
+    
+    // Dimensiones exactas de Figma
+    width: 222px;
+    min-height: 85px; // o height: 85px si no quieres que crezca
+    
+    // Centrado de texto y alineación de línea
+    text-align: center;
+    line-height: 1.5;      // Ajusta la altura de línea de Figma si difiere
+    letter-spacing: 0;
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;   // Centra verticalmente el bloque si mide 85px
+    justify-content: center;
+}
+
+// Botón Confirmar (258x44, #848CFF, Inter Extra Bold 16px)
+.recovery-confirm-btn {
+    width: 258px;
+    height: 44px;
+    border-radius: 10px;
+    background-color: #848CFF;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: #FFFFFF;
+    line-height: 1;
+    
+    box-shadow: 0 4px 16px rgba(132, 140, 255, 0.35);
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+
+    &:hover:not(:disabled) {
+        background-color: color.adjust(#848CFF, $lightness: -5%);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(132, 140, 255, 0.5);
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(1px);
+    }
+
+    // 🌟 Bloqueo inmediato al hacer clic
+    &:disabled {
+        cursor: not-allowed;
+        pointer-events: none; // Anula cualquier clic posterior
+        opacity: 0.75;
+    }
+}
+
+// Cuadro de la campana con degradado
+.recovery-bell-badge {
+    position: absolute;
+    top: 9px;
+    left: 12px;
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #82A2FF 0%, #4E6199 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(78, 97, 153, 0.35);
+    z-index: 15;
+}
+
+.recovery-bell-icon {
+    width: 30px;
+    height: 30px;
+    display: block;
+    color: #FFFFFF;
+}
+
+// Botón de cierre
+.recovery-close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 59px;
+    height: 59px;
+    border-radius: 18px;
+    background-color: #FF4D4D;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    box-shadow: 0 4px 16px rgba(255, 77, 77, 0.3);
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        background-color: color.adjust(#FF4D4D, $lightness: -5%);
+        transform: scale(1.03);
+        box-shadow: 0 6px 20px rgba(255, 77, 77, 0.45);
+    }
+
+    &:active {
+        transform: scale(0.96);
+    }
+}
+
+.recovery-close-icon {
+    width: 30px;
+    height: 30px;
+    display: block;
+    color: #FFFFFF;
+
+    path {
+        stroke: currentColor;
+        fill: none;
+    }
+}
+
+.svg-clip-def {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
 .fade-backdrop-enter-active,
 .fade-backdrop-leave-active {
     transition: opacity 0.25s ease, backdrop-filter 0.25s ease;
@@ -47,4 +220,43 @@
     opacity: 0;
     backdrop-filter: blur(0px);
     -webkit-backdrop-filter: blur(0px);
+}
+
+// ==========================================
+// TRANSICIONES Y ANIMACIONES
+// ==========================================
+
+// 1. Fondo Oscuro (Backdrop)
+.fade-backdrop-enter-active,
+.fade-backdrop-leave-active {
+    transition: opacity 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.fade-backdrop-enter-from,
+.fade-backdrop-leave-to {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+}
+
+// 2. Tarjeta / Contenedor (Scale & Spring)
+.modal-pop-enter-active {
+    // Curva física con rebote amortiguado muy sutil
+    transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                opacity 0.45s ease;
+}
+
+.modal-pop-leave-active {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 1, 1), 
+                opacity 0.2s ease;
+}
+
+.modal-pop-enter-from {
+    opacity: 0;
+    transform: scale(0.9) translateY(12px); // Inicia ligeramente pequeña y más abajo
+}
+
+.modal-pop-leave-to {
+    opacity: 0;
+    transform: scale(0.95);
 }

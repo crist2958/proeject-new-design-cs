@@ -92,6 +92,14 @@
 
     </div>
   </div>
+
+  <!-- Modal de Recuperación con escucha de eventos 'close' y 'confirm' -->
+  <PasswordRecoveryModal 
+    :is-open="isRecoveryOpen" 
+    @close="isRecoveryOpen = false" 
+    @confirm="handleConfirmRecovery"
+  />
+
 </template>
 
 <script setup>
@@ -107,6 +115,7 @@ const emailErrorHighlight = ref(false)
 const isRecoveryOpen = ref(false)
 const showPassword = ref(false)
 const email = ref('')
+const isSendingRecovery = ref(false)
 
 // 🌟 AGREGADO: Definición de la variable isEmailTouched
 const isEmailTouched = ref(false)
@@ -137,6 +146,26 @@ const handleForgotPassword = () => {
   // Si pasa la validación
   emailErrorHighlight.value = false
   isRecoveryOpen.value = true
+}
+
+// manejo la confirmacion del modal
+const handleConfirmRecovery = async () => {
+  if (isSendingRecovery.value) return
+  isSendingRecovery.value = true
+
+  // 1. Cerramos el modal inmediatamente
+  isRecoveryOpen.value = false
+
+  // 2. Disparamos el toast de éxito
+  toast.success(
+    `Se envió la solicitud al administrador. Revisa tu bandeja en ${email.value}.`,
+    'Solicitud enviada'
+  )
+
+  // 3. Pequeño timeout de cortesía para reestablecer el candado tras la animación
+  setTimeout(() => {
+    isSendingRecovery.value = false
+  }, 400)
 }
 </script>
 
