@@ -1,9 +1,9 @@
 <template>
   <Transition name="fade-backdrop">
+    <!-- 🌟 Se eliminó @click.self="handleClose" del overlay -->
     <div 
       v-if="isOpen" 
-      class="recovery-modal-overlay" 
-      @click.self="handleClose"
+      class="recovery-modal-overlay"
     >
       <!-- Máscara SVG para curvas de 18px -->
       <svg width="0" height="0" class="svg-clip-def">
@@ -29,7 +29,7 @@
         </defs>
       </svg>
 
-      <!-- Transición de escala -->
+      <!-- Transición de escala con rebote -->
       <Transition name="modal-pop" appear>
         <div class="recovery-modal-container">
           
@@ -38,7 +38,7 @@
             <BellIcon class="recovery-bell-icon" />
           </div>
 
-          <!-- Tarjeta principal -->
+          <!-- Tarjeta principal con el recorte y contenido centrado -->
           <div class="recovery-modal-card">
             <h2 class="recovery-title">
               Confirmación de <br /> solicitud
@@ -50,7 +50,7 @@
               Se enviará un aviso al administrador para gestionar tu cambio de contraseña. Te notificaremos en tu correo electrónico registrado tan pronto como tu nueva clave esté lista.
             </p>
 
-            <!-- 🌟 Botón con protección contra clics múltiples -->
+            <!-- Botón de confirmar con protección de clic múltiple -->
             <button 
               type="button" 
               class="recovery-confirm-btn"
@@ -61,7 +61,7 @@
             </button>
           </div>
 
-          <!-- Botón de cierre -->
+          <!-- 🌟 Único punto de cierre: Botón en la esquina superior derecha -->
           <button 
             type="button" 
             class="recovery-close-btn" 
@@ -91,10 +91,9 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'confirm'])
 
-// 🌟 Bandera reactiva que bloquea envíos duplicados
+// Bloqueo reactivo para evitar múltiples envíos
 const isSubmitting = ref(false)
 
-// Resetea el bloqueo cada vez que se vuelve a abrir el modal
 watch(() => props.isOpen, (newVal) => {
   if (newVal) {
     isSubmitting.value = false
@@ -102,7 +101,7 @@ watch(() => props.isOpen, (newVal) => {
 })
 
 const handleConfirm = () => {
-  if (isSubmitting.value) return // Previene llamadas concurrentes
+  if (isSubmitting.value) return
   isSubmitting.value = true
   emit('confirm')
 }
