@@ -1,0 +1,98 @@
+// ==========================================
+// BARRA SUPERIOR / HEADER (TOPBAR)
+// ==========================================
+
+.layout-topbar {
+    height: 52px; // 🌟 64px * 0.8 ≈ 52px
+    background-color: #181818;
+    border-bottom: 1px solid #2B2B2B;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    margin-left: 58px; // 🌟 Actualizado al 80% (antes 73px)
+    z-index: 997;
+    box-sizing: border-box;
+
+    @media (max-width: 991px) {
+        margin-left: 0;
+    }
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .menu-toggle-btn {
+        background: transparent;
+        border: none;
+        color: #FFFFFF;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+            background-color: #262626;
+        }
+    }
+
+    .topbar-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #FFFFFF;
+        margin: 0;
+    }
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .user-badge {
+        display: flex;
+        flex-direction: column;
+        text-align: right;
+
+        .user-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+
+        .user-role {
+            font-size: 11px;
+            color: #8E8E93;
+            text-transform: capitalize;
+        }
+    }
+
+    .topbar-logout-btn {
+        background-color: #FF4D4D;
+        color: #FFFFFF;
+        border: none;
+        border-radius: 8px;
+        padding: 6px 14px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+
+        &:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        &:active {
+            transform: translateY(1px);
+        }
+    }
+}

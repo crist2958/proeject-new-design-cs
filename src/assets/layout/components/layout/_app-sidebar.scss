@@ -1,0 +1,135 @@
+@use '../../variables' as *;
+
+// ==========================================
+// BARRA LATERAL (SIDEBAR) - ESCALA 80% SIN RECORTES
+// ==========================================
+
+.sidebar-container {
+    width: 58px; // 73px * 0.8 ≈ 58px
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #FFFFFF;
+    border-right: 1px solid #E5E7EB;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 0;
+    z-index: 1000;
+    box-sizing: border-box;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    overflow-y: auto;
+
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 22px; // 28px * 0.8 ≈ 22px
+        width: 100%;
+    }
+
+    .nav-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    // Botón contenedor (36x36px)
+    .nav-link-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #4B4B4B;
+        text-decoration: none;
+        flex-shrink: 0;
+        transition: background-color 0.2s ease, color 0.2s ease;
+
+        // 🌟 Ícono SVG: tamaño natural con escala para evitar recortes
+        .sidebar-svg-icon,
+        svg {
+            width: 24px;
+            height: 24px;
+            transform: scale(0.833); // 🌟 Escala al tamaño equivalente de 20px sin cortar bordes
+            transform-origin: center center;
+            overflow: visible !important;
+            flex-shrink: 0;
+            display: block;
+            margin: 0;
+            padding: 0;
+            color: #4B4B4B;
+            transition: color 0.2s ease;
+
+            // Herencia de color #4B4B4B tanto para trazos como rellenos
+            path, circle, rect, line, polygon, polyline {
+                transition: stroke 0.2s ease, fill 0.2s ease;
+
+                &[stroke], &:not([fill]) {
+                    stroke: #4B4B4B !important;
+                }
+                &[fill]:not([fill="none"]) {
+                    fill: #4B4B4B !important;
+                }
+            }
+        }
+
+        // Estado Hover
+        &:hover {
+            background-color: #F3F4F6;
+
+            svg {
+                path, circle, rect, line, polygon, polyline {
+                    &[stroke], &:not([fill]) {
+                        stroke: #1E1E1E !important;
+                    }
+                    &[fill]:not([fill="none"]) {
+                        fill: #1E1E1E !important;
+                    }
+                }
+            }
+        }
+
+        // Estado Activo
+        &.is-active,
+        &.router-link-active {
+            background-color: #848CFF;
+            box-shadow: 0 4px 10px rgba(132, 140, 255, 0.35);
+
+            svg {
+                path, circle, rect, line, polygon, polyline {
+                    &[stroke], &:not([fill]) {
+                        stroke: #FFFFFF !important;
+                    }
+                    &[fill]:not([fill="none"]) {
+                        fill: #FFFFFF !important;
+                    }
+                }
+            }
+        }
+    }
+}

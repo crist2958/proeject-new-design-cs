@@ -1,0 +1,69 @@
+// ==========================================
+// CONTENEDOR MAESTRO (APP LAYOUT)
+// ==========================================
+
+.layout-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #EAEAEA; // 🌟 Fondo central del sistema
+    color: #1E1E1E;
+    position: relative;
+}
+
+.layout-main-container {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 52px); // Ajustado a la altura del topbar escalado
+    justify-content: space-between;
+    padding: 20px 26px; // Padding escalado al 80%
+    margin-left: 58px; // 🌟 Actualizado al 80% (antes 73px)
+    transition: margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+
+    @media (max-width: 991px) {
+        margin-left: 0;
+        padding: 16px;
+    }
+}
+
+.layout-main {
+    flex: 1 1 auto;
+}
+
+// Máscara para móviles
+.layout-mask {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 998;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+}
+
+.layout-wrapper {
+    &.layout-static-inactive {
+        .layout-main-container {
+            margin-left: 0;
+        }
+        .sidebar-container {
+            transform: translateX(-100%);
+        }
+    }
+
+    &.layout-mobile-active {
+        @media (max-width: 991px) {
+            .layout-mask {
+                display: block;
+                pointer-events: auto;
+                backdrop-filter: blur(2px);
+            }
+            .sidebar-container {
+                transform: translateX(0);
+            }
+        }
+    }
+}
