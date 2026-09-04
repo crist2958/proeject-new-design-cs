@@ -1,4 +1,5 @@
 // Variables y Mixins base
+
 @use 'variables';
 @use 'mixins';
 
@@ -6,10 +7,11 @@
 @use './components/auth/recovery';
 @use './components/toast-notification/toast';
 
+
 @use './components/layout/app-footer';
 @use './components/layout/app-layout';
 @use './components/layout/app-sidebar';
 @use './components/layout/app-topbar';
 
-
-
+@use './components/table';
+@use './components/dashboard'
