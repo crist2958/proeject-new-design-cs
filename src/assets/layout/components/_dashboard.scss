@@ -1,0 +1,257 @@
+.main-page-wrapper {
+  padding: 16px 28px;
+  background-color: #edf0f5;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+.page-title-row {
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.table-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.table-top-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+.left-filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-dropdown-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f1f3f7;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #636b78;
+  cursor: pointer;
+}
+
+.filter-dropdown-btn .chevron {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.chip-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #92e4cc;
+  color: #0b5e4a;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.chip-remove {
+  background: transparent;
+  border: none;
+  color: #0b5e4a;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.right-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  background-color: #e3e6ff;
+  color: #6875f5;
+}
+
+.btn-primary {
+  background-color: #737df6;
+  color: #ffffff;
+}
+
+/* Badges de Estado */
+.status-pill {
+  display: inline-block;
+  padding: 4px 18px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.status-pill.active {
+  background-color: #b0eedb;
+  color: #106650;
+  border: 1px solid #7edebd;
+}
+
+.status-pill.inactive {
+  background-color: #fed7d7;
+  color: #c53030;
+  border: 1px solid #feb2b2;
+}
+
+
+
+
+/* Animación del icono chevron */
+.filter-dropdown-wrapper {
+  position: relative;
+}
+
+.chevron-icon {
+  transition: transform 0.2s ease;
+}
+
+.chevron-icon.is-rotated {
+  transform: rotate(180deg);
+}
+
+/* Menu flotante del filtro */
+.filter-menu {
+  position: absolute;
+  top: 115%;
+  left: 0;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  padding: 6px 0;
+  min-width: 150px;
+  z-index: 30;
+  border: 1px solid #eef1f6;
+}
+
+.filter-option {
+  padding: 8px 14px;
+  font-size: 13px;
+  color: #2c3345;
+  cursor: pointer;
+}
+
+.filter-option:hover {
+  background-color: #f4f6fa;
+}
+
+.btn-svg-icon {
+  width: 16px;
+  height: 16px;
+  display: block;
+  flex-shrink: 0;
+}
+
+// Barra Flotante de Acciones Rápidas
+.floating-action-bar {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(230, 235, 245, 0.8);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 25;
+}
+
+.floating-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: #2c3345;
+  display: inline-flex;
+  align-items: center;
+  gap: 0px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  .btn-label {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1e28;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(-4px);
+  }
+
+  // Al pasar el mouse
+  &:hover {
+    background-color: #ffffff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    gap: 8px;
+    padding: 8px 16px;
+
+    .btn-label {
+      max-width: 100px;
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  &.delete:hover {
+    color: #e53e3e;
+    .btn-label {
+      color: #e53e3e;
+    }
+  }
+}
