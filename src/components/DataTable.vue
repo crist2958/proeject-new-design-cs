@@ -1,3 +1,4 @@
+<!-- component -->
 <template>
   <div class="custom-data-table-container">
     <div class="table-scroll-wrapper">

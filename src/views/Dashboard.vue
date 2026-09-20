@@ -1,3 +1,5 @@
+<!-- dashboard  -->
+
 <template>
   <div class="main-page-wrapper" @click="deselectUser">
     <!-- Encabezado de la página -->
@@ -19,8 +21,8 @@
               />
             </button>
 
-            <!-- Opciones de prueba -->
-            <div v-if="isDropdownOpen" class="filter-menu">
+ 98           <!-- Opciones de prueba -->
+            <div v-if="isDropdownOpen" class="filte099r-menu">
               <div class="filter-option" @click="applyFilter('Estado: activo')">Estado: activo</div>
               <div class="filter-option" @click="applyFilter('Estado: inactivo')">Estado: inactivo</div>
               <div class="filter-option" @click="applyFilter('Rol: Microsoft')">Rol: Microsoft</div>

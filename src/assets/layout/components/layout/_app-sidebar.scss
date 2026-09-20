@@ -1,11 +1,11 @@
 @use '../../variables' as *;
 
 // ==========================================
-// BARRA LATERAL (SIDEBAR) - ESCALA 80% SIN RECORTES
+// BARRA LATERAL (SIDEBAR) - VERSIÓN COMPACTA (20px)
 // ==========================================
 
 .sidebar-container {
-    width: 58px; // 73px * 0.8 ≈ 58px
+    width: 46px; // Ancho más compacto y limpio acorde al botón de 20px
     height: 100vh;
     position: fixed;
     top: 0;
@@ -15,8 +15,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 16px 0;
+    justify-content: center; // Centrado vertical en la pantalla
+    padding: 12px 0;
     z-index: 1000;
     box-sizing: border-box;
     transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -42,7 +42,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 22px; // 28px * 0.8 ≈ 22px
+        gap: 12px; // 🌟 Espaciado reducido de 22px a 12px
         width: 100%;
     }
 
@@ -55,11 +55,11 @@
         margin: 0;
     }
 
-    // Botón contenedor (36x36px)
+    // 🌟 Botón contenedor reducido de 36px a 20px
     .nav-link-icon {
-        width: 36px;
-        height: 36px;
-        border-radius: 8px;
+        width: 20px;
+        height: 20px;
+        border-radius: 5px;
         padding: 0;
         margin: 0;
         display: flex;
@@ -70,12 +70,12 @@
         flex-shrink: 0;
         transition: background-color 0.2s ease, color 0.2s ease;
 
-        // 🌟 Ícono SVG: tamaño natural con escala para evitar recortes
+        // 🌟 Ícono SVG escalado proporcionalmente a 14.4px
         .sidebar-svg-icon,
         svg {
             width: 24px;
             height: 24px;
-            transform: scale(0.833); // 🌟 Escala al tamaño equivalente de 20px sin cortar bordes
+            transform: scale(0.6); // 24px * 0.6 = 14.4px (encaja perfecto dentro de 20px)
             transform-origin: center center;
             overflow: visible !important;
             flex-shrink: 0;
@@ -85,7 +85,6 @@
             color: #4B4B4B;
             transition: color 0.2s ease;
 
-            // Herencia de color #4B4B4B tanto para trazos como rellenos
             path, circle, rect, line, polygon, polyline {
                 transition: stroke 0.2s ease, fill 0.2s ease;
 
@@ -118,7 +117,7 @@
         &.is-active,
         &.router-link-active {
             background-color: #848CFF;
-            box-shadow: 0 4px 10px rgba(132, 140, 255, 0.35);
+            box-shadow: 0 2px 6px rgba(132, 140, 255, 0.35);
 
             svg {
                 path, circle, rect, line, polygon, polyline {
