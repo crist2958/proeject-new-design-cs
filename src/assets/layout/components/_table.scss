@@ -16,63 +16,96 @@
 
 .styled-table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 2px; /* Reducido para ahorrar espacio vertical */
+  border-collapse: collapse;
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
 
+  /* ENCABEZADO: La línea se extiende completamente de lado a lado */
   thead th {
-    padding: 8px 16px; /* Encabezado más compacto */
+    padding: 12px 16px;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
     color: #9aa0ac;
     text-align: left;
-    border-bottom: 1px solid #f0f1f5;
+    border-bottom: 1px solid #edf0f5; /* Línea de pared a pared */
     white-space: nowrap;
+
+    /* Pegado a los extremos del contenedor */
+    &:first-child {
+      padding-left: 24px;
+    }
+    &:last-child {
+      padding-right: 24px;
+    }
   }
 
+  /* CUERPO: Las filas tienen fondo completo pero las líneas internas llevan sangría */
   tbody tr {
     transition: background-color 0.2s ease;
     cursor: pointer;
+    position: relative;
 
     td {
-      padding: 6.5px 16px; /* Altura optimizada para que entren las 8 filas exactas */
+      padding: 12px 16px;
       font-size: 13.5px;
       color: #2c3345;
       font-weight: 500;
-      border-top: 1px solid transparent;
-      border-bottom: 1px solid #f6f7fb;
-      vertical-align: middle;
       background-color: transparent;
+      vertical-align: middle;
+      /* Eliminamos el border-bottom global de cada celda individual */
+      border-bottom: none; 
 
       &:first-child {
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
+        padding-left: 24px;
       }
 
       &:last-child {
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
+        padding-right: 24px;
       }
     }
 
-    &.is-selected td {
-      background-color: #e4e7ff !important;
-      border-bottom-color: transparent;
+    /* Dibujamos la línea divisoria inferior recortada para cada fila mediante ::after */
+    &:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 24px;  /* Margen izquierdo de la línea */
+      right: 24px; /* Margen derecho de la línea */
+      height: 1px;
+      background-color: #edf0f5;
+      pointer-events: none;
     }
 
-    &:hover:not(.is-selected) td {
+    /* Estado Seleccionado: Cubre toda la fila de lado a lado */
+    &.is-selected {
+      background-color: #e4e7ff;
+
+      /* Oculta la línea divisoria cuando está seleccionada */
+      &::after {
+        display: none;
+      }
+
+      td {
+        background-color: transparent;
+      }
+    }
+
+    /* Estado Hover */
+    &:hover:not(.is-selected) {
       background-color: #fafbfe;
+
+      td {
+        background-color: transparent;
+      }
     }
   }
 }
-
 /* Footer y Paginación compacta */
 .table-pagination-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 16px 0 16px;
+  padding: 12px 24px 0 24px;
   flex-shrink: 0;
 }
 .pagination-info {
@@ -139,3 +172,4 @@
   display: block;
   flex-shrink: 0;
 }
+
