@@ -42,7 +42,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  flex-wrap: wrap; /* Mantiene la fluidez si se agregan muchos chips */
+  flex-wrap: wrap; 
   gap: 8px;
 }
 
@@ -58,19 +58,19 @@
   align-items: center;
 }
 
-/* Estilos del chip de filtro (Manteniendo el color encendido y borde nítido) */
+/* Estilos del chip de filtro */
 .chip-filter {
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: #baf3db; /* Tono verde pastel encendido */
+  background-color: #baf3db; 
   color: #08503b;          
-  padding: 3px 10px 3px 12px;      /* Mantén el padding general del chip */
+  padding: 3px 10px 3px 12px;      
   border-radius: 20px;
   font-size: 12px;
   font-weight: 500;
   border: 1.5px solid #34d399; /* Borde definido */
-  height: 28px; /* Altura fija compacta para que luzca delgado como en Figma */
+  height: 28px; 
   box-sizing: border-box;
 }
 
@@ -83,19 +83,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  /* Ajuste para contener el icono de 24x24 sin deformarlo */
   width: 15px;
   height: 15px;
 }
 
-/* Tamaño exacto para el icono X del chip (Forzado a 24x24) */
+
 .chip-svg-icon {
   width: 24px;
   height: 24px;
   display: block;
   flex-shrink: 0;
-  stroke-width: 2px; /* Ajusta el grosor si es necesario para que se vea bien a este tamaño */
+  stroke-width: 2px; 
 }
 
 .right-actions {
@@ -127,11 +125,6 @@
   border: 1px solid #feb2b2;
 }
 
-
-
-
-/* Animación del icono chevron */
-/* Botón de Filtros con línea vertical completa estilo Figma */
 .filter-dropdown-btn {
   display: inline-flex;
   align-items: center;
@@ -140,7 +133,7 @@
   border-radius: 10px; /* Redondeado general de todo el botón */
   padding: 0;
   cursor: pointer;
-  overflow: hidden; /* Asegura que las esquinas respeten el borde redondeado */
+  overflow: hidden;
   font-family: 'Poppins', sans-serif;
   height: 38px;
 
@@ -155,11 +148,11 @@
     letter-spacing: 0.3px;
   }
 
-  /* Línea divisoria vertical COMPLETA de arriba a abajo como en Figma */
+  /* Línea divisoria vertical*/
   .filter-divider {
     width: 1.5px;
-    height: 100%; /* Ocupa el 100% de la altura de extremo a extremo */
-    background-color: #ffffff; // Línea blanca o el tono sutil de separación
+    height: 100%; 
+    background-color: #ffffff; 
   }
 
   /* Parte derecha: Contenedor de la flecha */
@@ -206,7 +199,7 @@
     background-color: #f4f6fa;
   }
 }
-/* Reducir y estilizar los botones superiores (Descargar / Agregar) para que no se vean grandes */
+/* Reducir y estilizar los botones superiores */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -214,12 +207,12 @@
   gap: 8px;
   padding: 8px 16px; // Padding más compacto
   border-radius: 10px;
-  font-size: 11.5px; // Tamaño de fuente estilizado acorde a Figma
+  font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.3px;
   border: none;
   cursor: pointer;
-  height: 38px; // Misma altura para alinear perfecto con el botón de filtros
+  height: 38px; 
   transition: opacity 0.2s, transform 0.1s;
 
   &:hover {
@@ -241,7 +234,7 @@
   color: #ffffff;
 }
 
-/* Iconos estrictos a 15.58px perfectamente centrados */
+
 .btn-svg-icon {
   width: 15.58px;
   height: 15.58px;
@@ -251,10 +244,9 @@
   flex-shrink: 0;
 }
 // Barra Flotante de Acciones Rápidas
-// Barra Flotante de Acciones Rápidas (Compacta según Figma)
 .floating-action-bar {
   position: absolute;
-  bottom: 60px; // Un poco más cerca del borde inferior como en el diseño
+  bottom: 60px; 
   left: 50%;
   transform: translateX(-50%);
   background: rgba(255, 255, 255, 0.9);
@@ -274,7 +266,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 6px 10px; // Reducido para ajustarse a Figma
+  padding: 6px 10px; 
   border-radius: 10px;
   color: #2c3345;
   display: inline-flex;
@@ -283,7 +275,7 @@
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
 
-  // Ajuste estricto de los SVGs a 28.15px como pediste de Figma
+ 
   svg, .floating-icon {
     width: 28.15px;
     height: 28.15px;
@@ -306,7 +298,7 @@
     transform: translateX(-4px);
   }
 
-  // Al pasar el mouse (Efecto expansión suave)
+  // Al pasar el mouse (Efecto expansion suave)
   &:hover {
     background-color: #ffffff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
