@@ -58,29 +58,44 @@
   align-items: center;
 }
 
+/* Estilos del chip de filtro (Manteniendo el color encendido y borde nítido) */
 .chip-filter {
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: #e6f9f2; /* Tono pastel limpio */
-  color: #0b5e4a;
-  padding: 6px 14px;
+  background-color: #baf3db; /* Tono verde pastel encendido */
+  color: #08503b;          
+  padding: 3px 10px 3px 12px;      /* Mantén el padding general del chip */
   border-radius: 20px;
   font-size: 12px;
-  font-weight: 400; /* Fuente normal sin negritas exageradas */
-  border: 1px solid #b2efdc; /* Borde (stroke) solicitado */
+  font-weight: 500;
+  border: 1.5px solid #34d399; /* Borde definido */
+  height: 28px; /* Altura fija compacta para que luzca delgado como en Figma */
+  box-sizing: border-box;
 }
 
 .chip-remove {
   background: transparent;
   border: none;
-  color: #0b5e4a;
-  font-size: 12px;
+  color: #08503b;
   cursor: pointer;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  /* Ajuste para contener el icono de 24x24 sin deformarlo */
+  width: 15px;
+  height: 15px;
+}
+
+/* Tamaño exacto para el icono X del chip (Forzado a 24x24) */
+.chip-svg-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  flex-shrink: 0;
+  stroke-width: 2px; /* Ajusta el grosor si es necesario para que se vea bien a este tamaño */
 }
 
 .right-actions {

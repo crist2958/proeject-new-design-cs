@@ -33,7 +33,9 @@
           <div class="chip-container">
             <div v-for="(filter, index) in activeFilters" :key="index" class="chip-filter">
               <span>{{ filter }}</span>
-              <button type="button" class="chip-remove" @click="removeFilter(index)">✕</button>
+              <button type="button" class="chip-remove" @click="removeFilter(index)">
+                <XIcon class="chip-svg-icon" />
+              </button>
             </div>
           </div>
         </div> 
@@ -150,6 +152,7 @@ import { ref } from 'vue'
 import DownloadIcon from '@/assets/icons/Table/DowloadIcon.svg?component'
 import PlusIcon from '@/assets/icons/Table/PlusIcon.svg?component'
 import ChevronIcon from '@/assets/icons/Table/ChevronIcon.svg?component'
+import XIcon from '@/assets/icons/Table/x-03.svg?component'
 
 const props = defineProps({
   columns: { type: Array, required: true },
