@@ -1,0 +1,283 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Marco blanco exterior*/
+.modal-container {
+  background: #ffffff;
+  width: 100%;
+  max-width: 510px;
+  border-radius: 26px;
+  padding: 4px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  animation: modalScaleIn 0.25s ease-out;
+  overflow: visible;
+}
+
+@keyframes modalScaleIn {
+  from {
+    transform: scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Banner morado */
+.modal-header {
+  background-color: #c3cbff; 
+  padding: 22px 24px;
+  border-radius: 22px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 110px;
+  box-sizing: border-box;
+}
+
+.header-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500; /* Inter Medium */
+  color: #6172f3;
+  margin-bottom: 2px;
+  display: block;
+}
+
+.header-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 800; /* Inter ExtraBold */
+  color: #ffffff;
+  margin: 0 0 2px 0;
+  line-height: 1.2;
+}
+
+.header-description {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11.5px;
+  font-weight: 500; /* Poppins Medium */
+  color: #ffffff;
+  margin: 0;
+}
+
+/* X de cerrar de 29.75px */
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  line-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8c9bfd;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.close-icon {
+  width: 29.75px;
+  height: 29.75px;
+}
+
+
+.modal-avatar-wrapper {
+  position: absolute;
+  right: 28px;
+  bottom: -36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-circle {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background-color: #f0f1f6;
+  border: 2px dashed #b2b6c6;
+  box-shadow: 0 0 0 4px #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.camera-svg-icon {
+  width: 24px;
+  height: 24px;
+  color: #b2b6c6;
+}
+
+
+.avatar-add-btn {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 26px;
+  height: 26px;
+  background-color: #6172f3;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  z-index: 2;
+}
+
+.plus-svg-icon {
+  width: 19px;
+  height: 19px;
+  color: #ffffff;
+  display: block;
+}
+
+/* Ajuste del cuerpo del formulario */
+.modal-form {
+  padding: 32px 14px 14px 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  box-sizing: border-box;
+
+  &.full-width {
+    width: 100%;
+    margin-bottom: 14px;
+  }
+
+  label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11.5px;
+    font-weight: 500; /* Poppins Medium */
+    color: #1a1e28;
+  }
+
+  input, select {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #f4f5f8;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 300; /* Poppins Light */
+    color: #2c3345;
+    outline: none;
+    transition: all 0.2s;
+
+    &::placeholder {
+      color: #b0b4c3;
+      font-weight: 300; /* Poppins Light */
+    }
+
+    &:focus {
+      border-color: #737df6;
+      background-color: #ffffff;
+    }
+  }
+}
+
+.select-wrapper {
+  position: relative;
+  width: 100%;
+
+  select {
+    width: 100%;
+    appearance: none;
+    cursor: pointer;
+    padding-right: 36px;
+  }
+
+  .select-arrow {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #636b78;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* Footer del Modal */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.btn-save {
+  background-color: #dbe0ff;
+  color: #5061f6;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 24px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  font-weight: 800; /* Inter ExtraBold */
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #c8d1ff;
+  }
+}
+
+
+.save-svg-icon {
+  width: 24px;
+  height: 24px;
+}

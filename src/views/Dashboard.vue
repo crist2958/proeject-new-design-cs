@@ -39,7 +39,7 @@
             <DownloadIcon class="btn-svg-icon" />
             <span>DESCARGAR</span>
           </button>
-          <button class="btn btn-primary" @click="toast.success('Abriendo formulario...', 'Crear usuario')">
+          <button class="btn btn-primary" @click="handleAddUser">
             <PlusIcon class="btn-svg-icon" />
             <span>AGREGAR</span>
           </button>
@@ -86,6 +86,13 @@
         </button>
       </div>
     </div>
+    <UserFormModal
+      v-if="isModalOpen"
+      :is-edit-mode="isEditMode"
+      :initial-data="formUser"
+      @close="isModalOpen = false"
+      @save="handleSaveUser"
+    />
   </div>
 </template>
 
@@ -100,9 +107,17 @@ import FileShieldIcon from '@/assets/icons/Table/file-shieldIcon.svg?component'
 import ToggleLeftIcon from '@/assets/icons/Table/toogle-leftIcon.svg?component'
 import TrasIcon from '@/assets/icons/Table/TrasIcon.svg?component'
 import ChevronIcon from '@/assets/icons/Table/ChevronIcon.svg?component'
+import UserFormModal from '@/components/UserFormModal.vue'
 
 const toast = useToast()
 const currentPage = ref(1)
+
+const isModalOpen = ref(false)
+const isEditMode = ref(false)
+
+// Inicia sin ningún usuario seleccionado
+const selectedUser = ref(null)
+const formUser = ref({})
 
 // Definición de las columnas
 const tableColumns = [
@@ -153,6 +168,11 @@ const floatingActions = computed(() => [
     isDelete: true
   }
 ])
+const handleAddUser = () => {
+  isEditMode.value = false
+  formUser.value = {}
+  isModalOpen.value = true
+}
 
 // 3. Manejador centralizado de acciones
 const handleAction = (actionId) => {
@@ -160,7 +180,9 @@ const handleAction = (actionId) => {
 
   switch (actionId) {
     case 'edit':
-      toast.warning(`Editar: ${selectedUser.value.fullName}`, 'Acción')
+      isEditMode.value = true
+      formUser.value = { ...selectedUser.value }
+      isModalOpen.value = true
       break
     case 'permissions':
       toast.info(`Permisos: ${selectedUser.value.fullName}`, 'Acción')
@@ -174,9 +196,30 @@ const handleAction = (actionId) => {
   }
 }
 
+const handleSaveUser = (formData) => {
+  if (isEditMode.value) {
+    const index = userList.value.findIndex(
+      user => user.id === formData.id
+    )
+
+    if (index !== -1) {
+      Object.assign(userList.value[index], formData)
+    }
+  } else {
+    const newId = Math.max(0, ...userList.value.map(user => user.id)) + 1
+
+    userList.value.push({
+      ...formData,
+      id: newId
+    })
+  }
+
+  isModalOpen.value = false
+  toast.success('Usuario guardado correctamente', 'Usuarios')
+}
+
 //const selectedUser = ref(userList.value[2])
-// Inicia sin ningún usuario seleccionado
-const selectedUser = ref(null)
+
 
 // Estados para el dropdown de filtros
 const isDropdownOpen = ref(false)
