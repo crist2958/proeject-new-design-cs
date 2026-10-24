@@ -1,11 +1,11 @@
 @use '../../variables' as *;
 
 // ==========================================
-// BARRA LATERAL (SIDEBAR) - VERSIÓN COMPACTA (20px)
+// BARRA LATERAL (SIDEBAR) - ACTIVO & TOOLTIP LATERAL
 // ==========================================
 
 .sidebar-container {
-    width: 46px; // Ancho más compacto y limpio acorde al botón de 20px
+    width: 46px;
     height: 100vh;
     position: fixed;
     top: 0;
@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; // Centrado vertical en la pantalla
+    justify-content: center;
     padding: 12px 0;
     z-index: 1000;
     box-sizing: border-box;
@@ -28,12 +28,8 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    overflow-y: auto;
-
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-        display: none;
-    }
+    // 🌟 Importante: visible para que el tooltip flotante no se corte al salir por la derecha
+    overflow: visible;
 
     .nav-menu {
         list-style: none;
@@ -42,7 +38,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 12px; // 🌟 Espaciado reducido de 22px a 12px
+        gap: 12px; // Separación vertical entre botones
         width: 100%;
     }
 
@@ -53,13 +49,14 @@
         width: 100%;
         padding: 0;
         margin: 0;
+        position: relative;
     }
 
-    // 🌟 Botón contenedor reducido de 36px a 20px
+    // Botón contenedor base
     .nav-link-icon {
-        width: 20px;
-        height: 20px;
-        border-radius: 5px;
+        width: 26px;  // Proporción ideal para alojar el ícono de 20px
+        height: 26px;
+        border-radius: 8px;
         padding: 0;
         margin: 0;
         display: flex;
@@ -68,14 +65,15 @@
         color: #4B4B4B;
         text-decoration: none;
         flex-shrink: 0;
+        position: relative; // Contexto de posicionamiento para el tooltip lateral
         transition: background-color 0.2s ease, color 0.2s ease;
 
-        // 🌟 Ícono SVG escalado proporcionalmente a 14.4px
+        // Ícono SVG
         .sidebar-svg-icon,
         svg {
             width: 24px;
             height: 24px;
-            transform: scale(0.6); // 24px * 0.6 = 14.4px (encaja perfecto dentro de 20px)
+            transform: scale(0.6); // Escala a 14.4px
             transform-origin: center center;
             overflow: visible !important;
             flex-shrink: 0;
@@ -89,37 +87,74 @@
                 transition: stroke 0.2s ease, fill 0.2s ease;
 
                 &[stroke], &:not([fill]) {
-                    stroke: #4B4B4B !important;
+                    stroke: currentColor !important;
                 }
                 &[fill]:not([fill="none"]) {
-                    fill: #4B4B4B !important;
+                    fill: currentColor !important;
                 }
             }
         }
 
-        // Estado Hover
+        // ==========================================
+        // 🌟 EFECTO HOVER: TOOLTIP LATERAL (SEPARACIÓN DE 10px)
+        // ==========================================
+        .sidebar-tooltip {
+            position: absolute;
+            left: calc(100% + 10px); // 🌟 Separación exacta de 10px hacia la derecha
+            top: 50%;
+            transform: translateY(-50%) translateX(-6px);
+            background-color: #090909; // 🌟 Fill #090909
+            color: #FFFFFF;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap; // Ancho variable acorde a la longitud del texto
+            padding: 5px 10px;
+            border-radius: 8px; // 🌟 Borde redondeado sutil
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            pointer-events: none; // Evita interferir con el cursor
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                        visibility 0.2s ease;
+            z-index: 1050;
+
+            // Pequeña flecha lateral apuntando al ícono (opcional y elegante)
+            &::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                right: 100%;
+                transform: translateY(-50%);
+                border-width: 4px;
+                border-style: solid;
+                border-color: transparent #090909 transparent transparent;
+            }
+        }
+
+        // Hover sobre el ícono: muestra el cuadro con el nombre
         &:hover {
             background-color: #F3F4F6;
+            color: #1E1E1E;
 
-            svg {
-                path, circle, rect, line, polygon, polyline {
-                    &[stroke], &:not([fill]) {
-                        stroke: #1E1E1E !important;
-                    }
-                    &[fill]:not([fill="none"]) {
-                        fill: #1E1E1E !important;
-                    }
-                }
+            .sidebar-tooltip {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(-50%) translateX(0); // Animación suave hacia su posición
             }
         }
 
-        // Estado Activo
+        // ==========================================
+        // 🌟 SELECCIÓN ACTIVA: CUADRO #090909 E ÍCONO BLANCO
+        // ==========================================
         &.is-active,
         &.router-link-active {
-            background-color: #848CFF;
-            box-shadow: 0 2px 6px rgba(132, 140, 255, 0.35);
+            background-color: #090909 !important; // 🌟 Cuadro activo #090909
+            color: #FFFFFF !important;            // 🌟 Ícono en color blanco
 
             svg {
+                color: #FFFFFF !important;
+
                 path, circle, rect, line, polygon, polyline {
                     &[stroke], &:not([fill]) {
                         stroke: #FFFFFF !important;
@@ -129,6 +164,14 @@
                     }
                 }
             }
+
+            &:hover {
+                background-color: #090909 !important; // Mantiene el fondo activo incluso en hover
+            }
         }
     }
+}
+
+.sidebar-footer {
+    display: none;
 }
