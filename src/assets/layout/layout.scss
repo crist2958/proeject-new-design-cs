@@ -14,4 +14,7 @@
 @use './components/layout/app-topbar';
 
 @use './components/table';
-@use './components/dashboard'
+@use './components/dashboard';
+@use './components/permissions-modal.scss';
+@use './components/confirm-revoke-modal.scss'
+

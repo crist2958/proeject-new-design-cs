@@ -1,4 +1,5 @@
 .main-page-wrapper {
+  position: relative;
   padding: 16px 28px;
   background-color: #F5F5F5;
   box-sizing: border-box;
@@ -63,13 +64,13 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: #baf3db; 
-  color: #08503b;          
+  background-color: #16C09861; 
+  color: #008767;          
   padding: 3px 10px 3px 12px;      
   border-radius: 20px;
   font-size: 12px;
   font-weight: 500;
-  border: 1.5px solid #34d399; /* Borde definido */
+  border: 1px solid #00B087; /* Borde definido */
   height: 28px; 
   box-sizing: border-box;
 }
@@ -77,7 +78,7 @@
 .chip-remove {
   background: transparent;
   border: none;
-  color: #08503b;
+  color: #008767;
   cursor: pointer;
   padding: 0;
   display: flex;
@@ -105,24 +106,31 @@
 
 /* Badges de Estado */
 .status-pill {
-  display: inline-block;
-  padding: 4px 18px;
-  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 28px;
+  border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
   text-align: center;
+  line-height: 1;
+  text-align: center;
+  box-sizing: border-box;
+  margin: 0 auto;
 }
 
 .status-pill.activo {
-  background-color: #b0eedb;
-  color: #106650;
-  border: 1px solid #7edebd;
+  background-color: #A6E7D8;
+  color: #007a5e;
+  border: 1.5px solid #00B087;
 }
 
 .status-pill.inactivo {
-  background-color: #fed7d7;
-  color: #c53030;
-  border: 1px solid #feb2b2;
+  background-color: #FFC5C5;
+  color: #DF0404;
+  border: 1.5px solid #DF0404;
 }
 
 .filter-dropdown-btn {
@@ -246,7 +254,7 @@
 // Barra Flotante de Acciones Rápidas
 .floating-action-bar {
   position: absolute;
-  bottom: 60px; 
+  bottom: 10px; 
   left: 50%;
   transform: translateX(-50%);
   background: rgba(255, 255, 255, 0.9);
@@ -255,7 +263,7 @@
   border: 1px solid rgba(225, 230, 240, 0.9);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   border-radius: 14px;
-  padding: 4px 6px; // Padding más reducido para compactarla
+  padding: 6px 8px; // Padding más reducido para compactarla
   display: flex;
   align-items: center;
   gap: 4px; // Menos espacio entre botones para que no se vea ancha
@@ -266,11 +274,14 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 6px 10px; 
-  border-radius: 10px;
+  height: 40px;
+  min-width: 40px;
+  padding: 0px 10px; 
+  border-radius: 12px;
   color: #2c3345;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0px;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
@@ -278,13 +289,16 @@
  
   svg, .floating-icon {
     width: 28.15px;
-    height: 28.15px;
-    min-width: 28.15px;
-    min-height: 28.15px;
+    height: auto;
+    max-height: 28.15px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+
+    &.trash-icon {
+      height: 29.32px;
+    }
   }
 
   .btn-label {
@@ -300,10 +314,10 @@
 
   // Al pasar el mouse (Efecto expansion suave)
   &:hover {
-    background-color: #ffffff;
+    background-color: #DFE2FF73;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     gap: 8px;
-    padding: 6px 14px;
+    padding: 0px 14px;
 
     .btn-label {
       max-width: 100px;

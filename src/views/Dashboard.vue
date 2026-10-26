@@ -14,6 +14,7 @@
       :items="userList"
       :selected-row-id="selectedUser?.id"
       :current-page="currentPage"
+      :items-per-page="10"
       :filter-options="['Estado: activo', 'Estado: inactivo', 'Rol: Microsoft', 'Rol: Admin']"
       @row-click="selectRow"
       @update:currentPage="currentPage = $event"
@@ -23,7 +24,7 @@
     >
       <!-- Custom slot para Status -->
       <template #cell(status)="{ value }">
-        <span class="status-pill" :class="value.toLowerCase()">
+        <span class="status-pill" :class="value?.toLowerCase()">
           {{ value }}
         </span>
       </template>
@@ -36,7 +37,7 @@
         :key="action.id"
         class="floating-btn"
         :class="{ delete: action.isDelete }"
-        @click="handleAction(action.id)"
+        @click.stop="handleAction(action.id)"
       >
         <span class="floating-icon">
           <component :is="action.icon" />
@@ -53,7 +54,15 @@
       @close="isModalOpen = false"
       @save="handleCreateUser"
     />
-    
+
+    <!-- Modal de Permisos Dinámico -->
+    <PermissionsModal
+      v-if="isPermissionsModalOpen"
+      :is-open="isPermissionsModalOpen"
+      :user="activePermissionsUser"
+      @close="isPermissionsModalOpen = false"
+      @save="handleSavePermissions"
+    />
   </div>
 </template>
 
@@ -65,9 +74,13 @@ import EditIcon from '@/assets/icons/Table/EditIcon.svg?component'
 import FileShieldIcon from '@/assets/icons/Table/file-shieldIcon.svg?component'
 import ToggleLeftIcon from '@/assets/icons/Table/toogle-leftIcon.svg?component'
 import TrasIcon from '@/assets/icons/Table/TrasIcon.svg?component'
+import PermissionsModal from '@/components/modals/PermissionsModal.vue'
 
 const toast = useToast()
 const currentPage = ref(1)
+
+const activePermissionsUser = ref(null)
+const isPermissionsModalOpen = ref(false)
 
 // Definición de las columnas
 const tableColumns = [
@@ -107,7 +120,7 @@ const floatingActions = computed(() => [
   },
   {
     id: 'toggle-status',
-    label: selectedUser.value?.status === 'Active' ? 'Inactivar' : 'Activar',
+    label: selectedUser.value?.status === 'Activo' ? 'Inactivar' : 'Activar',
     icon: markRaw(ToggleLeftIcon),
     isDelete: false
   },
@@ -128,10 +141,13 @@ const handleAction = (actionId) => {
       toast.warning(`Editar: ${selectedUser.value.fullName}`, 'Acción')
       break
     case 'permissions':
-      toast.info(`Permisos: ${selectedUser.value.fullName}`, 'Acción')
+      if (selectedUser.value) {
+        activePermissionsUser.value = selectedUser.value // Pasa el objeto directamente
+        isPermissionsModalOpen.value = true
+      }
       break
     case 'toggle-status':
-      selectedUser.value.status = selectedUser.value.status === 'Active' ? 'Inactive' : 'Active'
+      selectedUser.value.status = selectedUser.value.status === 'Activo' ? 'Inactivo' : 'Activo'
       break
     case 'delete':
       toast.error(`Eliminado: ${selectedUser.value.fullName}`, 'Acción')
@@ -150,6 +166,11 @@ const deselectUser = () => { selectedUser.value = null; isDropdownOpen.value = f
 
 const handleFilterChange = (filters) => {
   console.log('Filtros activos actuales:', filters)
+}
+
+const handleSavePermissions = (permissionsData) => {
+  console.log('Permisos guardados:', permissionsData)
+  toast.success('Permisos actualizados correctamente', 'Permisos')
 }
 
 // Seleccionar usuario al hacer clic en su fila

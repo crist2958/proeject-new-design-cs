@@ -73,7 +73,7 @@
           </tr>
 
           <tr 
-            v-for="(item, index) in items" 
+            v-for="(item, index) in paginatedItems" 
             :key="item.id || index"
             :class="{ 'is-selected': selectedRowId === item.id }"
             @click="handleRowClick(item)"
@@ -94,15 +94,10 @@
     </div>
     </div>
     
-
-  
-
-    <!-- Paginador genérico inferior -->
-    <!-- Paginador genérico inferior (Traducido al español y visible para pruebas con más de 5 elementos) -->
-    <div class="table-pagination-footer" v-if="items.length > 5">
+    <div class="table-pagination-footer" v-if="items.length > 10">
       <div class="pagination-info">
         <slot name="pagination-info">
-          Mostrando datos {{ pagination.from || 1 }} a {{ pagination.to || items.length }} de {{ pagination.total || items.length }} entradas
+          Mostrando datos {{ paginationStart }} a {{ paginationEnd }} de {{ items.length }} entradas
         </slot>
       </div>
 
@@ -116,7 +111,7 @@
         </button>
 
         <button 
-          v-for="page in [1, 2, 3, 4]" 
+          v-for="page in totalPages" 
           :key="page"
           class="page-btn"
           :class="{ active: page === currentPage }"
@@ -124,20 +119,10 @@
         >
           {{ page }}
         </button>
-
-        <span class="pagination-dots">...</span>
-
-        <button 
-          class="page-btn"
-          :class="{ active: currentPage === 40 }"
-          @click="$emit('update:currentPage', 40)"
-        >
-          40
-        </button>
-
+        <!--Boton siguiente-->
         <button 
           class="page-btn arrow" 
-          :disabled="currentPage === 40" 
+          :disabled="currentPage === totalPages" 
           @click="$emit('update:currentPage', currentPage + 1)"
         >
           ›
@@ -148,7 +133,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import DownloadIcon from '@/assets/icons/Table/DowloadIcon.svg?component'
 import PlusIcon from '@/assets/icons/Table/PlusIcon.svg?component'
 import ChevronIcon from '@/assets/icons/Table/ChevronIcon.svg?component'
@@ -159,13 +144,38 @@ const props = defineProps({
   items: { type: Array, required: true, default: () => [] },
   selectedRowId: { type: [Number, String], default: null },
   currentPage: { type: Number, default: 1 },
-  pagination: { type: Object, default: () => ({ from: 1, to: 8, total: '256K' }) },
+  itemsPerPage: { type: Number, default: 10 },
   //Permite recibir los filtros configurables desde la pantalla padre
   filterOptions: {
     type: Array,
     default: () => ['Estado: activo', 'Estado: inactivo', 'Rol: Microsoft']
   }
 })
+
+const emit = defineEmits(['row-click', 'update:currentPage', 'export', 'add', 'filter-change'])
+
+const itemsPerPage = computed(() => props.itemsPerPage || 10)
+
+const paginatedItems = computed(() => {
+  const start = (props.currentPage - 1) * itemsPerPage.value
+  const end = start + itemsPerPage.value
+  return props.items.slice(start, end)
+})
+
+const totalPages = computed(() => {
+  return Math.ceil(props.items.length / itemsPerPage.value) || 1
+})
+
+const paginationStart = computed(() => {
+  if (props.items.length === 0) return 0
+  return (props.currentPage - 1) * itemsPerPage.value + 1
+})
+
+const paginationEnd = computed(() => {
+  const end = props.currentPage * itemsPerPage.value
+  return end > props.items.length ? props.items.length : end
+})
+
 const isDropdownOpen = ref(false)
 
 const activeFilters = ref(['Estado: activo'])
@@ -183,7 +193,6 @@ const removeFilter = (index) => {
 //const removeFilter = (index) => {
   //activeFilters.value.splice(index, 1)
 //}
-const emit = defineEmits(['row-click', 'update:currentPage', 'export', 'add', 'filter-change'])
 
 const handleRowClick = (item) => {
   emit('row-click', item)

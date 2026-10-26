@@ -1,0 +1,261 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.permissions-modal-container {
+  background: #ffffff;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 20px;
+  padding: 28px 32px 24px 32px;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+  animation: modalScaleIn 0.25s ease-out;
+}
+
+@keyframes modalScaleIn {
+  from { transform: scale(0.96); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Botón flotante estilo Figma (Rojo suave redondeado) */
+.close-btn-red {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background-color: #ff5252;
+  border: none;
+  border-radius: 12px;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 82, 82, 0.35);
+  transition: transform 0.2s, background-color 0.2s;
+
+  &:hover {
+    background-color: #e04545;
+    transform: scale(1.03);
+  }
+}
+
+.close-icon {
+  width: 30px;
+  height: 30px;
+  color: #ffffff;
+}
+
+/* Cabecera */
+.modal-header-section {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+/* Badge con fondo azul e ícono blanco */
+.user-badge-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #6b7cff 0%, #5865f2 100%); /* Fondo degradado suave como Figma */
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .shield-svg {
+    width: 21px;
+    height: 25px;
+    /* Apuntamos a todas las rutas internas del SVG para pintar el borde de blanco */
+    stroke: #ffffff;
+    fill: none;
+
+    * {
+      stroke: #ffffff;
+      fill: none;
+    }
+  }
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.user-role {
+  font-size: 13px;
+  color: #a0aec0;
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.permissions-description {
+  font-size: 13px;
+  color: #718096;
+  margin-bottom: 24px;
+  line-height: 1.4;
+
+  strong {
+    color: #2d3748;
+    font-weight: 700;
+  }
+}
+
+/* Tabla de Permisos */
+.permissions-table-wrapper {
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+.permissions-table-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  padding: 0 0 12px 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #a0aec0;
+  text-align: center;
+
+  .col-section {
+    text-align: left;
+  }
+}
+
+.permissions-rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.permission-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+  padding: 10px 0;
+  border-top: 1px solid #f0f4f8;
+
+  .section-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #4a5568;
+  }
+
+  .col-action {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* Switch estilo Figma */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 22px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .slider {
+      background-color: #6373f1;
+    }
+
+    &:checked + .slider:before {
+      transform: translateX(16px);
+    }
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #e2e8f0;
+    transition: 0.25s ease;
+    border-radius: 22px;
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #ffffff;
+      transition: 0.25s ease;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+/* Footer */
+.permissions-modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-revoke {
+  background: transparent;
+  border: none;
+  color: #e53e3e;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
+.btn-save {
+  background-color: #e2e8ff;
+  color: #6373f1;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #d0dcff;
+  }
+}
+
+.save-svg-icon {
+  width: 24px;
+  height: 24px;
+  color: #6373f1;
+}
